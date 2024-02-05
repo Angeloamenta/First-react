@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 
-function Form({ addCity }) {
+function Form({ addCity, cities }) {
 
     const [formData, setFormData] = useState({
         title: "",
         imgUrl: "",
+        description: "",
         isVisited: false
     })
+
 
     const inputChange = (e) => {
         const { name, value } = e.target;
@@ -38,12 +40,22 @@ function Form({ addCity }) {
             })
     }
 
+    const setDescription = (e) => {
+            const { name, value } = e.target
+            
+            setFormData({
+                ...formData,
+                [name]: value
+            })
+    }
+
     const addCitta = (e) => {
         e.preventDefault()
         const city = {
             id: 5,
             title: formData.title,
             imgUrl: formData.imgUrl,
+            description:formData.description,
             isVisited:formData.isVisited
     };
         
@@ -59,6 +71,10 @@ function Form({ addCity }) {
              <div>
                 <label htmlFor="img">Img</label>
                 <input className='p-2' type="text" name="imgUrl" onChange={setImage} value={formData.imgUrl} />
+            </div>
+                <div>
+                <label htmlFor="description">Description</label>
+                <input className='p-2' type="text" name="description" onChange={setDescription} value={formData.description} />
             </div>
             <div>
                 <label htmlFor="title">Title</label>
